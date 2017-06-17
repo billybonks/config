@@ -1,0 +1,174 @@
+
+
+ api.tasks.enqueue("notifyDevelopPassing",{sha: "88313ad26c0234d7f2006b99c915e76412117361",login: "billybonks",state: "success",repoOnlineId: 4545233},"default")
+ api.tasks.enqueue('notifyStaleStatePrs',[{repoId:4, stateId:1, age:2}],function(){})
+
+rake db:drop db:create db:schema:load db:seed -- --name=sebastien --account-id=4
+
+Ember.EasyForm.Config.registerTemplate 'easyForm/inputControls', Ember.HTMLBars.compile('''
+  <div class="controls error-wrapper">
+    {{input-field propertyBinding="view.property" inputOptionsBinding="view.inputOptionsValues"}}
+    {{partial "shared/easy_form_helper"}}
+  </div>
+''')
+
+Ember.EasyForm.SingleInput = Ember.EasyForm.Input.extend
+  layout: Ember.HTMLBars.compile('''
+      <div class="single-input {{if view.showError 'single-input--invalid'}} {{if view.validationError 'single-input--invalid'}}">
+        {{yield}}
+        {{#if view.showError}}
+          <div class="single-input__error-msg">
+            {{view.showError}}
+          </div>
+        {{/if}}
+        {{#if view.validationError}}
+          <div class="single-input__error-msg">
+            {{view.validationError}}
+          </div>
+        {{/if}}
+      </div>
+  ''')
+  classNameBindings: ['validationError:error']
+
+Ember.Handlebars.registerHelper "single-input", (object, options) ->
+  options = Ember.EasyForm.processOptions(object, options)
+  return Ember.helperShims.viewHelper(this, Ember.EasyForm.SingleInput, options)
+
+# Ember.EasyForm.TooltipWarning = Ember.EasyForm.TooltipHint.extend
+#   classNames: "fa fa-exclamation-triangle fa-lg tooltip-warning"
+#   'data-original-title': Ember.computed -> @get("context.warnings.#{@property}").join(' ')
+#   toolTipClassNames: 'warning'
+
+
+
+
+
+gem install nokogiri -v '1.6.8.1' -- --use-system-libraries --with-xml2-include="/usr/local/Cellar/libxml2/2.9.4/include/libxml2/"
+
+Historical Jobs
+https://github.com/tradegecko/tradegecko/blame/library/ember-1.13/lib/quickbooks/push_historical_objects_job.rb#L13
+
+RUn SQL
+result = ActiveRecord::Base.connection.execute("EXPLAIN ANALYZE " + Address.where(company_id: 5233363).to_sql);
+result.entries
+
+MailjetResponse.where("data @> hstore(:key, :value)",
+  key: "email", value: "jack.mainprize@vepalabs.com.au"
+).last
+
+unsent_invites.map { |invite| MailjetResponse.where("data @> hstore(:key, :value)",key:"email",value:invite.email) }
+.select { |email| email.custom_campaign.includes? "2b_invitation_instructions"}
+
+
+a = Account.find(23731)
+Accounting::Xero::UnapprovedStockReport.new(a).total
+Accounting::Xero::UnsyncedStockReport.new(a).missing_total
+
+
+ ResetVariantCacheJob.new.perform(v.id,nil,nil)
+
+please test
+
+https://github.com/tradegecko/tradegecko/blame/library/ember-1.13/app/assets/javascripts/templates/variants/_form.handlebars#L95
+
+
+
+
+\dt
+\d+
+
+WITH index_relations as (
+  select
+    indexrelid,
+    indrelid,
+    pg_class.relname as relation_name
+  from pg_index
+  join pg_class on indrelid = pg_class.oid
+  where pg_class.relname NOT LIKE 'pg_%'
+), indexs as (
+  select
+    indexrelid,
+    pg_class.relname as index_name
+    indcollation as index_collations
+  from pg_index
+  join pg_class on indexrelid = pg_class.oid
+  where pg_class.relname NOT LIKE 'pg_%'
+)
+select index_name, relation_name, index_collations from  indexs join index_relations on  indexs.indexrelid = index_relations.indexrelid;
+
+
+import Component from 'ember-component';
+import injectService from 'ember-service/inject'
+import computed from 'ember-computed';
+import observer from 'ember-metal/observer';
+debugger
+export default Component.extend({
+  reportService:injectService(),
+  word:'helo',
+  init(){
+    this._super(...arguments);
+    debugger
+  },
+  fetchData:observer('query',function(){
+    debugger
+    this.get('reportService').getDataFor(query).then((data) => {
+      debugger
+    });
+  }),
+  query: computed('timeDimension','cube', function(){
+    debugger
+
+  })
+})
+
+
+
+
+
+
+Slack = require('./lib/slack')
+s = new Slack(1,api.db)
+s.initialize()
+/*
+s.web.chat.delete('1482941243.000002', 'C0W5JFALF')
+
+s.postMessage(null,{
+    "text": "Would you like to play a game?",
+    "attachments": [
+        {
+            "text": "Choose a game to play",
+            "fallback": "You are unable to choose a game",
+            "callback_id": "wopr_game",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "actions": [
+                {
+                    "name": "chess",
+                    "text": "Chess",
+                    "type": "button",
+                    "value": "chess"
+                },
+                {
+                    "name": "maze",
+                    "text": "Falken's Maze",
+                    "type": "button",
+                    "value": "maze"
+                },
+                {
+                    "name": "war",
+                    "text": "Thermonuclear War",
+                    "style": "danger",
+                    "type": "button",
+                    "value": "war",
+                    "confirm": {
+                        "title": "Are you sure?",
+                        "text": "Wouldn't you prefer a good game of chess?",
+                        "ok_text": "Yes",
+                        "dismiss_text": "No"
+                    }
+                }
+            ]
+        }
+    ]
+})
+*/

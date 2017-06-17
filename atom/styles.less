@@ -1,0 +1,221 @@
+/*
+ * Your Stylesheet
+ *
+ * This stylesheet is loaded when Atom starts up and is reloaded automatically
+ * when it is changed.
+ *
+ * If you are unfamiliar with LESS, you can read more about it here:
+ * http://www.lesscss.org
+ */
+
+.tree-view {
+
+}
+
+
+// style the background and foreground colors on the atom-text-editor-element
+// itself
+atom-text-editor, :host {
+  .entity {
+    &.name.type {
+      &.js{
+        color:#94c464;
+      }
+    }
+  }
+}
+
+// To style other content in the text editor's shadow DOM, use the ::shadow
+// expression
+@import (reference) "syntax-variables";
+
+// Makes the bracket matcher highlight more noticeable
+atom-text-editor::shadow {
+
+  .find-result .region{
+    mix-blend-mode: overlay;
+    background-color: black;
+  }
+  .js {
+    .variable.this {
+      color: #859900;
+    }
+  }
+  .css, .less, .sass{
+    .property-name{
+      color:#26a6a6;
+    }
+  }
+  .scss, .sass {
+    .set {
+      .variable{
+          //color:@green
+        }
+      .variable:last-child{
+        color: #e4d1b9;
+      }
+      .color:last-child{
+        color:#db784d;
+      }
+    }
+  }
+
+  .less {
+    .variable {
+      //color: @green;
+    }
+    .key-value + .variable {
+      color:#e4d1b9
+    }
+  }
+  .bracket-matcher .region {
+    background-color: #db784d;
+  }
+}
+
+//Makes the cursor pulse instead of blink
+atom-text-editor::shadow {
+  .cursor {
+    transition: opacity 0.5s;
+    color:#70cf32;
+  }
+}
+@nice-blue: #5B83AD;
+//shows trailing whitespace
+atom-text-editor::shadow {
+  div.line:not(.cursor-line) {
+    .trailing-whitespace {
+      background-color: @background-color-error;
+      color: contrast(@background-color-error);
+    }
+  }
+}
+
+  /* show invisibles only in selection */
+atom-text-editor::shadow {
+  .invisible-character {
+      color: @syntax-background-color;
+  }
+}
+
+
+//CRAY CRAY 3d
+#atom-perspective() {
+  @viewing-distance: 20in;
+  @rotation: 3deg;
+
+  .tree-view-scroller {
+    transform: translateY(-10vh) perspective(@viewing-distance) rotateY(@rotation);
+    padding-top: 12vh;
+    padding-bottom: 12vh;
+    transform-origin: left;
+    width: 120%;
+    height: 120%;
+  }
+  body /deep/ atom-text-editor-minimap {
+    transform: perspective(@viewing-distance) rotateY(-@rotation);
+    transform-origin: right;
+  }
+}
+
+// Brightens the gutter diff indicators to make them more visible
+.diff-icon(@color) {
+  background-color: fade(@color, 60%);
+
+  &:before {
+    color: contrast(fade(@color, 60%));
+  }
+}
+
+.diff-border(@color) {
+  border-color: lighten(@color, 15%);
+  border-left-width: 4px;
+}
+
+@gutter-padding: 15px;
+
+atom-text-editor {
+  .gutter .line-number {
+    padding-left: @gutter-padding;
+
+    &.git-line-added {
+      .diff-border(@text-color-success);
+      padding-left: @gutter-padding - 4;
+    }
+
+    &.git-line-modified {
+      .diff-border(@text-color-warning);
+      padding-left: @gutter-padding - 4;
+    }
+
+    &.git-line-removed {
+      .diff-border(@text-color-error);
+      padding-left: @gutter-padding;
+    }
+  }
+
+  .invisible-character {
+      color: @syntax-background-color;
+  }
+
+  div.line:not(.cursor-line) {
+    .trailing-whitespace {
+      background-color: @background-color-error;
+      color: contrast(@background-color-error);
+    }
+  }
+  
+  .gutter.git-diff-icon .line-number {
+    &.git-line-added {
+      .diff-icon(@text-color-success);
+    }
+
+    &.git-line-modified {
+      .diff-icon(@text-color-warning);
+    }
+
+    &.git-line-removed {
+      .diff-icon(@text-color-error);
+    }
+  }
+}
+
+.syntax--entity.syntax--name.syntax--function {
+  color: #f49c14; //#2fcc71
+}
+
+.syntax--htmlbars .syntax--support.syntax--function {
+  color: #f49c14;
+}
+
+.syntax--htmlbars.syntax--string{
+  color: #9aefea;
+}
+
+.syntax--htmlbars.syntax--tag{
+  color: #b9bed5;
+}
+
+.syntax--htmlbars.syntax--meta{
+  color: #b9bed5;
+}
+
+.syntax--htmlbars.syntax--variable{
+  color: #85b1e0;
+}
+
+.syntax--support.syntax--function{
+  color: #73c990;
+}
+
+.syntax--string.syntax--unquoted.syntax--htmlbars {
+  color: #85b1e0;
+}
+.syntax--string.syntax--quoted {
+  .syntax--string.syntax--unquoted.syntax--htmlbars {
+    color: #9aefea;
+  }
+}
+.syntax--htmlbars{
+  color:red;
+}
